@@ -57,7 +57,7 @@ class PointInterestService (
         pointInterest.nomePOI = form.nomePOI
         pointInterest.raio = form.raio
         pointInterest.latitude = form.latitude
-        pointInterest.longitude = form.logintude
+        pointInterest.longitude = form.longitude
 
         return pointInterestViewMapper.map(pointInterest)
     }

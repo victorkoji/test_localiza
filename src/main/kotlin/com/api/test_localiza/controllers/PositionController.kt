@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("position")
@@ -36,7 +37,7 @@ class PositionController(private val service: PositionService) {
     @Transactional
     @ApiOperation(value = "Insere uma nova posição")
     fun insert(
-        @RequestBody newPosition: NewPositionDTO,
+        @Valid @RequestBody newPosition: NewPositionDTO,
         uriBuilder: UriComponentsBuilder
     ): ResponseEntity<PositionView> {
         val position = service.insert(newPosition)
@@ -48,7 +49,7 @@ class PositionController(private val service: PositionService) {
     @PutMapping()
     @Transactional
     @ApiOperation(value = "Atualiza uma posição já existente")
-    fun update(@RequestBody position: UpdatePositionDTO): ResponseEntity<PositionView> {
+    fun update(@Valid @RequestBody position: UpdatePositionDTO): ResponseEntity<PositionView> {
         val positionView = service.update(position)
         return ResponseEntity.ok(positionView)
     }

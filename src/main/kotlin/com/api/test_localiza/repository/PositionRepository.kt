@@ -16,4 +16,17 @@ interface PositionRepository: JpaRepository<Position, Int> {
         nativeQuery = true
     )
     fun findAllByData(@Param("startDate") startDate: String,@Param("endDate") endDate: String): List<Position>
+
+    @Query(
+        value = "SELECT * FROM position p WHERE " +
+                "p.placa = :placa AND " +
+                "cast(cast(p.data_posicao as date) as text) >= :startDate AND " +
+                "cast(cast(p.data_posicao as date) as text) <= :endDate ",
+        nativeQuery = true
+    )
+    fun findAllByDataAndPlaca(
+        @Param("placa") placa: String,
+        @Param("startDate") startDate: String,
+        @Param("endDate") endDate: String
+    ): List<Position>
 }
