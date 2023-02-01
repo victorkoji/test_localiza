@@ -9,7 +9,7 @@ class Main():
 #     self.HOST = 'localhost'
     self.HOST = 'db'
     self.USER = 'postgres'
-    self.DB_NAME = 'test_localiza'
+    self.DB_NAME = 'postgres'
     self.PASSWORD = 'postgres'
     self.PORT = '5432'
 
