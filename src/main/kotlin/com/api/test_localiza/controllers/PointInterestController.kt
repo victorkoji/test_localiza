@@ -7,6 +7,7 @@ import com.api.test_localiza.exceptions.AlreadyExistException
 import com.api.test_localiza.services.PointInterestService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiParam
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.springframework.data.domain.Page
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/point-interest")
@@ -41,6 +43,7 @@ class PointInterestController(
     }
 
     @GetMapping("/{id}")
+    @ApiParam(name = "id", value = "asdfasdfasd")
     @ApiOperation(value = "Busca um ponto de interesse por ID")
     fun findById(@PathVariable id: Int): PointInterestView {
         return service.findById(id)
@@ -50,7 +53,7 @@ class PointInterestController(
     @Transactional
     @ApiOperation(value = "Insere um novo ponto de interesse")
     fun insert(
-        @RequestBody pointInterest: NewPointInterestDTO,
+        @Valid @RequestBody pointInterest: NewPointInterestDTO,
         uriBuilder: UriComponentsBuilder
     ): ResponseEntity<PointInterestView> {
         val pointInterestView = service.insert(pointInterest)
@@ -62,7 +65,7 @@ class PointInterestController(
     @PutMapping()
     @Transactional
     @ApiOperation(value = "Atualiza um ponto de interesse já existente")
-    fun update(@RequestBody pointInterest: UpdatePointInterestDTO): ResponseEntity<PointInterestView> {
+    fun update(@Valid @RequestBody pointInterest: UpdatePointInterestDTO): ResponseEntity<PointInterestView> {
         val pointInterestView = service.update(pointInterest)
         return ResponseEntity.ok(pointInterestView)
     }

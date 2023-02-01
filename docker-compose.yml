@@ -1,34 +1,36 @@
 version: '3.8'
 services:
-#  web:
-#    build:
-#      context: .
-#    ports:
-#      - 8080:8080
-#    healthcheck:
-#      test: curl -Is localhost:8080 | head -n 1 | grep 302 || exit 1
-#      interval: 30s
-#      timeout: 10s
-#      retries: 5
-#    depends_on:
-#      - db
   db:
     image: postgres:14.1-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-      - PGDATA=/var/lib/postgresql/data/pgdata
+      - APP_DB_USER=user_localiza
+      - APP_DB_PASS=pass_localiza
+      - APP_DB_NAME=test_localiza
     ports:
       - '5432:5432'
     volumes:
-      - db:/var/lib/postgresql/data
-#  populate_database:
-#    build: ./data
-#    depends_on:
-#      web:
-#        condition: service_healthy
+      - ./database:/docker-entrypoint-initdb.d/
+  web:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    healthcheck:
+      test: curl --fail http://localhost:8080/health-check || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    depends_on:
+      - db
+  populate_database:
+    build: ./database
+    depends_on:
+      web:
+        condition: service_healthy
 volumes:
   db:
     driver: local

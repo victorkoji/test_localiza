@@ -80,7 +80,13 @@ class PositionService(
             Sort.Order.asc("placa"),
             Sort.Order.asc("dataPosicao")
         )
-        val positionList = if(licensePlate !== null){
+        val positionList = if(licensePlate !== null && startDate !== null && endDate !== null){
+            repository.findAllByDataAndPlaca(
+                licensePlate,
+                startDate,
+                endDate,
+            )
+        } else if(licensePlate !== null){
             repository.findAllByPlaca(
                 licensePlate,
                 sort
@@ -90,7 +96,7 @@ class PositionService(
                 startDate,
                 endDate,
             )
-        }else {
+        } else {
             repository.findAll(sort)
         }
 

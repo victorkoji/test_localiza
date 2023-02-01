@@ -6,9 +6,10 @@ from dateutil import tz
 
 class Main():
   def __init__(self):
-    self.HOST = 'localhost'
+#     self.HOST = 'localhost'
+    self.HOST = 'db'
     self.USER = 'postgres'
-    self.DB_NAME = 'postgres'
+    self.DB_NAME = 'test_localiza'
     self.PASSWORD = 'postgres'
     self.PORT = '5432'
 
@@ -21,8 +22,6 @@ class Main():
 
   def populatePointInterestTable(self):
     cur = self.conn.cursor()
-
-    cur.execute("TRUNCATE TABLE point_interest;")
 
     with open('./base_pois_def.csv', 'r') as f:
       reader = csv.reader(f)
@@ -39,8 +38,6 @@ class Main():
   def populatePositionTable(self):
     cur = self.conn.cursor()
 
-    cur.execute("TRUNCATE TABLE position;")
-
     with open('./posicoes.csv', 'r') as f:
       reader = csv.reader(f)
       next(reader)
@@ -55,7 +52,9 @@ class Main():
     self.conn.commit()
 
   def execute(self):
+    print("Starting the database population")
     self.populatePointInterestTable()
     self.populatePositionTable()
+    print("Finished populating the database")
 
 Main().execute()
