@@ -2,7 +2,7 @@
 
 API desenvolvida para determinar o tempo que os veículos ficaram em determinados pontos de interesses.
 
-## ⚙️ Pré-Requisitos instalados
+## ⚙️ Requisitos instalados
 
 - [Docker](https://www.docker.com/)
 - [Python](https://www.python.org/)
@@ -10,20 +10,16 @@ API desenvolvida para determinar o tempo que os veículos ficaram em determinado
 
 ## 🛠️ Instalação e execução
 
-1. Executar o comando no terminal:
+- Executar o comando no terminal:
   ```sh
   docker-compose up
-  ```
-2. Depois que o servidor estiver rodando, será necessário popular o banco de dados.
-   Para isso, execute o comando:
-  ```sh
-  python ./data/script_populate_database.py
   ```
 
 
 ## 🚀 Utilização da API
 - Após a execução do projeto, você pode consultar a [**documentação da API**](http://localhost:8080/swagger-ui/index.html#/).
-- Caso esteja usando o Inmsonia, você pode importar as rotas com o seguinte json.
+- Caso esteja usando o Inmsonia, você pode clicar no botão ao lado para utilizar as rotas.
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Localiza%20API&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fvictorkoji%2Ftest_localiza%2Fmain%2FInsomnia.json)
 
 ## 💪 Construído com
 - Java 8
